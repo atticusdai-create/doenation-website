@@ -47,7 +47,7 @@ export default function GetHelp() {
       <PageHero
         title={
           <>
-            You do not have to <span className="text-accent italic">do this alone.</span>
+            You do not have to <span className="text-accent">do this alone.</span>
           </>
         }
         intro="DoeNation helps women leave battered and abusive homes, with a confidential place to stay where their attackers cannot find them."

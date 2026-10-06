@@ -58,7 +58,8 @@ If you find something the Site Map doesn't cover, or it's wrong, **fix the Site 
 
 ## Gotchas
 - `html { scroll-behavior: smooth }` is set. The CLI's scroll commands force `behavior: "instant"`; any custom `eval` scrolling must do the same or screenshots catch the page mid-scroll (sticky header appears in the middle of a full-page shot).
-- Reveal animations are CSS scroll-driven (`.reveal`, `animation-timeline: view()`), with no JS. Content is always present in the DOM and visible without JS.
+- Reveal animations are CSS scroll-driven (`.reveal`, `animation-timeline: view()`), with no JS. They only progress when the page really scrolls, so `screenshot --full` and `sweep` capture with reduced motion (final states). Pass `--motion` to see live state; use `record` to prove the animation itself. They're disabled for print.
+- Changing fonts (or anything else in `src/app/layout.tsx`'s `next/font` calls) doesn't hot-reload: the page keeps the old font classes and silently falls back to system fonts. Run `dev down && dev up`, then confirm with `eval "getComputedStyle(document.querySelector('h1')).fontFamily"`.
 - Pressing `Escape` anywhere **leaves the site** (Quick exit). Don't `press Escape` to close things during a test unless you mean to exit.
 - `next/image` caches optimized images by filename in dev. If you replace an image file, rename it or restart the dev server.
 - Commands follow the **newest tab** by default. Quick exit opens a second tab, so afterwards run `tabs`, and `tab close-others` before continuing.

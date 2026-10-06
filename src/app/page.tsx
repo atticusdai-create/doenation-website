@@ -20,8 +20,8 @@ export default function Home() {
       {/* Hero */}
       <section className="container-x grid items-center gap-10 pt-10 pb-16 md:grid-cols-[1.05fr_1fr] md:gap-12 md:pt-16 lg:pt-20 lg:pb-24">
         <Reveal>
-          <h1 className="display text-[44px] leading-[1.02] font-bold text-ink sm:text-6xl lg:text-[72px]">
-            A safe place to <span className="text-accent italic">begin again.</span>
+          <h1 className="display text-[44px] leading-[1.02] font-semibold text-ink sm:text-6xl lg:text-[72px]">
+            A safe place to <span className="text-accent">begin again.</span>
           </h1>
           <p className="prose-body mt-6 text-lg sm:text-xl">
             DoeNation is a guest house in Aurora, Colorado for women leaving abusive homes. Rest, plan and rebuild

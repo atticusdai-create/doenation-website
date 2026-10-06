@@ -392,7 +392,7 @@ const HELP = {
   viewport: 'viewport <mobile|tablet|desktop|WxH> — set the session viewport (sticky across commands).',
   theme: 'theme <light|dark> — emulate prefers-color-scheme for the session (sticky).',
   snapshot: 'snapshot [--selector CSS] — accessibility-tree (ARIA) snapshot of the page or an element. Cheapest way to "see" structure.',
-  screenshot: 'screenshot <out.png> [--full] [--selector CSS] [--viewport V] [--theme T] [--motion] — screenshot the session page. --full = whole page. --selector captures the whole element (even taller than the viewport) with reveal animations frozen at their final state; pass --motion to keep live animation state.',
+  screenshot: 'screenshot <out.png> [--full] [--selector CSS] [--viewport V] [--theme T] [--motion] — screenshot the session page. --full = whole page (reveals frozen at final state unless --motion). --selector captures the whole element (even taller than the viewport) with reveal animations frozen at their final state; pass --motion to keep live animation state.',
   click: 'click <selector> — click. Selectors: CSS, text=Pricing, role=button[name="Sign up"], [data-testid=x].',
   type: 'type <selector> <text> [--clear] — type into an input.',
   press: 'press <key> — keyboard press, e.g. Escape, Tab, Meta+K, Enter.',
@@ -406,7 +406,7 @@ const HELP = {
   a11y: 'a11y [path] [--viewport V] [--theme T] — axe-core audit (needs `npm i -D axe-core`). Returns violations by impact.',
   perf: 'perf [path] [--runs N] [--throttle] [--viewport V] [--out file.json] [--compare file.json] — cold-load metrics (TTFB, FCP, LCP, CLS, TBT, bytes) as medians, checked against config.budgets.',
   trace: 'trace [path] <out.json> — Chrome performance trace of a cold load (open in chrome://tracing or DevTools Performance panel).',
-  sweep: 'sweep [--routes /,/about] [--viewports mobile,desktop] [--themes light,dark] [--out dir] — screenshot + lint + console check for every route x viewport x theme. Writes a gallery index.html.',
+  sweep: 'sweep [--routes /,/about] [--viewports mobile,desktop] [--themes light,dark] [--out dir] [--motion] — screenshot + lint + console check for every route x viewport x theme. Captures with reduced motion so scroll reveals show their final state (--motion to disable). Writes a gallery index.html.',
   links: 'links [path] [--max N] — crawl internal links (rendered DOM) and report any non-2xx/3xx with the pages that link to them.',
   record: 'record [path] <out.webm> [--steps steps.json] [--viewport V] — video proof. Default journey scrolls the page; --steps runs [{"click":"text=Pricing"},{"wait":800},{"type":["#email","a@b.co"]},{"press":"Enter"},{"scroll":"bottom"},{"goto":"/about"}].',
   cleanup: 'cleanup [--dry-run] — stop the session and delete .state (logs, profile).',
@@ -638,6 +638,10 @@ const commands = {
     const { page } = await connect(cfg);
     if (flags.viewport) await page.setViewportSize(resolveViewport(cfg, flags.viewport));
     if (flags.theme) await page.emulateMedia({ colorScheme: flags.theme });
+    // Full-page captures don't scroll, so scroll-driven reveals below the fold would be caught mid-animation.
+    // Freeze motion for the capture (final states), unless --motion asks for live animation state.
+    const freeze = flags.full && !flags.motion;
+    if (freeze) await page.emulateMedia({ reducedMotion: 'reduce' });
     if (flags.full) await settle(page, { scroll: true });
     const abs = path.resolve(outPath);
     fs.mkdirSync(path.dirname(abs), { recursive: true });
@@ -657,7 +661,8 @@ const commands = {
       await page.screenshot({ path: abs, fullPage: true, animations: 'disabled', clip: box });
       if (!flags.motion) await page.emulateMedia({ reducedMotion: session.motion || 'no-preference' });
     }
-    else await page.screenshot({ path: abs, fullPage: !!flags.full });
+    else await page.screenshot({ path: abs, fullPage: !!flags.full, animations: freeze ? 'disabled' : 'allow' });
+    if (freeze) await page.emulateMedia({ reducedMotion: readJson(SESSION_FILE, {}).motion || 'no-preference' });
     return { path: abs, url: page.url(), viewport: page.viewportSize() };
   },
 
@@ -864,7 +869,8 @@ const commands = {
     const worker = async () => {
       for (let job = jobs.shift(); job; job = jobs.shift()) {
         const vp = resolveViewport(cfg, job.vpName);
-        const context = await browser.newContext({ viewport: vp, colorScheme: job.theme, isMobile: vp.width < 600, hasTouch: vp.width < 600 });
+        // Reduced motion = final states in full-page captures (scroll-driven reveals never run without scrolling). --motion keeps live state.
+        const context = await browser.newContext({ viewport: vp, colorScheme: job.theme, isMobile: vp.width < 600, hasTouch: vp.width < 600, reducedMotion: flags.motion ? 'no-preference' : 'reduce' });
         const page = await context.newPage();
         const sink = { console: [], network: [] };
         attachLoggers(page, sink);

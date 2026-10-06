@@ -50,7 +50,6 @@
   --color-line: var(--border);
   --color-ring: var(--ring);
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
   --radius-panel: 20px;
   --radius-field: 12px;
 }
@@ -104,8 +103,8 @@ body {
   @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10;
 }
 @utility display {
-  font-family: var(--font-display), var(--font-body), sans-serif;
-  @apply tracking-[-0.025em] text-balance;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  @apply tracking-[-0.018em] text-balance;
 }
 @utility prose-body {
   @apply text-[17px] leading-[1.7] text-muted max-w-[62ch] text-pretty;
@@ -134,5 +133,12 @@ body {
       animation-range: entry 0% entry 35%;
       animation-delay: 0s;
     }
+  }
+}
+
+/* Printing has no scroll timeline: always print revealed content. */
+@media print {
+  .reveal {
+    animation: none !important;
   }
 }

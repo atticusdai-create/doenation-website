@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -7,13 +7,8 @@ import { SafetyBar } from "@/components/SafetyBar";
 import { QuickExit } from "@/components/QuickExit";
 import { site } from "@/lib/site";
 
-const display = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const body = Figtree({
+// One variable family for headings and body. Lexend was designed for reading ease.
+const lexend = Lexend({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -59,7 +54,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} antialiased`}>
+    <html lang="en" className={`${lexend.variable} antialiased`}>
       <body className="min-h-dvh">
         <a
           href="#main"

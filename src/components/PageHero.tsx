@@ -18,7 +18,7 @@ export function PageHero({
   return (
     <section className="container-x grid items-end gap-8 pt-10 pb-14 md:grid-cols-[1.2fr_1fr] md:gap-12 md:pt-16 lg:pb-20">
       <Reveal>
-        <h1 className="display text-[40px] leading-[1.04] font-bold text-ink sm:text-5xl lg:text-6xl">{title}</h1>
+        <h1 className="display text-[40px] leading-[1.04] font-semibold text-ink sm:text-5xl lg:text-6xl">{title}</h1>
         <p className="prose-body mt-5 text-lg">{intro}</p>
         {children}
       </Reveal>

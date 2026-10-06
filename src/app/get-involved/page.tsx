@@ -39,7 +39,7 @@ export default function GetInvolved() {
       <PageHero
         title={
           <>
-            Help a woman find her <span className="text-accent italic">way forward.</span>
+            Help a woman find her <span className="text-accent">way forward.</span>
           </>
         }
         intro="DoeNation is a nonprofit committed to improving the lives of women in need through shelter, community outreach and education."

@@ -19,8 +19,8 @@ export default function Contact() {
   return (
     <section className="container-x grid gap-12 pt-10 md:pt-16 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
       <Reveal>
-        <h1 className="display text-[40px] leading-[1.04] font-bold text-ink sm:text-5xl lg:text-6xl">
-          Drop us a <span className="text-accent italic">line.</span>
+        <h1 className="display text-[40px] leading-[1.04] font-semibold text-ink sm:text-5xl lg:text-6xl">
+          Drop us a <span className="text-accent">line.</span>
         </h1>
         <p className="prose-body mt-5 text-lg">
           Have a question or want to get in touch? We would love to hear from you, and we will get back to you as soon as
