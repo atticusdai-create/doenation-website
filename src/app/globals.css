@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/*
+  DoeNation design tokens.
+  One accent (brand plum), cool lavender-tinted neutrals, light + dark.
+  Shape rule: interactive controls are full pills, media + panels are 20px, inputs are 12px.
+*/
+:root {
+  --bg: #f6f5f9;
+  --surface: #fdfcff;
+  --surface-2: #efecf5;
+  --ink: #1d1729;
+  --muted: #5a5268;
+  --accent: #5b2e91;
+  --accent-hover: #4a2478;
+  --on-accent: #fbf9ff;
+  --accent-soft: #ebe3f6;
+  --border: #dfdae8;
+  --ring: #7d4fc0;
+  --shadow: 37 22 64;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131019;
+    --surface: #1b1722;
+    --surface-2: #231e2c;
+    --ink: #f1edf7;
+    --muted: #aaa2b9;
+    --accent: #c3a6ef;
+    --accent-hover: #d4bff5;
+    --on-accent: #1b1026;
+    --accent-soft: #2c2340;
+    --border: #322b3e;
+    --ring: #c3a6ef;
+    --shadow: 0 0 0;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-line: var(--border);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --radius-panel: 20px;
+  --radius-field: 12px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold whitespace-nowrap transition-[background-color,color,transform,box-shadow] duration-200 active:translate-y-px;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-on-accent hover:bg-accent-hover;
+  box-shadow: 0 10px 24px -12px rgb(var(--shadow) / 0.55);
+}
+@utility btn-secondary {
+  @apply btn border border-line bg-surface text-ink hover:border-accent hover:text-accent;
+}
+@utility container-x {
+  @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10;
+}
+@utility display {
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  @apply tracking-[-0.025em] text-balance;
+}
+@utility prose-body {
+  @apply text-[17px] leading-[1.7] text-muted max-w-[62ch] text-pretty;
+}
+
+/* Reveal: hero content animates on load, everything else as it scrolls into view. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+      animation-delay: 0s;
+    }
+  }
+}

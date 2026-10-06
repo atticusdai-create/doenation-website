@@ -1,0 +1,39 @@
+{
+  "baseUrl": "http://localhost:3100",
+  "devCommand": "npm run dev -- -p 3100",
+  "root": "../../..",
+  "routes": [
+    "/",
+    "/client-info",
+    "/get-involved",
+    "/contact",
+    "/this-page-does-not-exist"
+  ],
+  "viewports": {
+    "mobile": [
+      390,
+      844
+    ],
+    "tablet": [
+      820,
+      1180
+    ],
+    "desktop": [
+      1440,
+      900
+    ]
+  },
+  "budgets": {
+    "lcpMs": 1800,
+    "cls": 0.05,
+    "tbtMs": 200,
+    "jsKb": 200,
+    "totalKb": 500
+  },
+  "expectNotFound": [
+    "/this-page-does-not-exist"
+  ],
+  "prodBuildCommand": "npx next build",
+  "prodStartCommand": "npx next start -p 3101",
+  "prodUrl": "http://localhost:3101"
+}
