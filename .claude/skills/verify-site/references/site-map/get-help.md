@@ -4,9 +4,9 @@ The page for women seeking help: reassurance, how to reach DoeNation, and online
 
 ## Sub-features
 
-- Hero: "You do not have to do this alone.", CTAs "Call 720-341-8844" (tel:) and "Contact us".
+- Hero: "DoeNation: empowering communities." + mission, image `warm-lights.jpg`, CTAs "Call 720-341-8844" (tel:) and "Contact us".
 - Crisis lines panel.
-- Three numbered steps: Get in touch, Talk through what you need, Move somewhere safe.
+- "Have a question or want to get in touch?": three contact cards (call/text, email, contact form link).
 - Online safety tips (4): device, private browsing, clearing history, the Esc key.
 - Closing link to `/get-involved`.
 

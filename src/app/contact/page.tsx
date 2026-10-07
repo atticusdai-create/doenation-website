@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Phone, EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
 import { ContactForm } from "@/components/ContactForm";
 import { Reveal } from "@/components/Reveal";
@@ -26,6 +27,16 @@ export default function Contact() {
           Have a question or want to get in touch? We would love to hear from you, and we will get back to you as soon as
           we can.
         </p>
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-[20px] bg-[#0b0a0c]">
+          <Image
+            src="/images/hello.jpg"
+            alt="A pink neon sign shaped like a speech bubble that says hello."
+            fill
+            preload
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            className="object-cover"
+          />
+        </div>
         <ul className="mt-10 space-y-6">
           {methods.map(({ icon: Icon, label, value, href }) => (
             <li key={label} className="flex items-start gap-4">

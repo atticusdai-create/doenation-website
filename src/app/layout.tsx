@@ -17,7 +17,7 @@ const lexend = Lexend({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "DoeNation | A safe place to begin again",
+    default: "DoeNation | Discover DoeNation Guest House",
     template: "%s | DoeNation",
   },
   description: site.description,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "DoeNation | A safe place to begin again",
+    title: "DoeNation | Discover DoeNation Guest House",
     description: site.description,
     locale: "en_US",
   },

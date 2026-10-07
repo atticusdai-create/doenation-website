@@ -6,6 +6,9 @@ import {
   ClockCounterClockwise,
   Keyhole,
   ArrowRight,
+  Phone,
+  EnvelopeSimple,
+  PaperPlaneTilt,
 } from "@phosphor-icons/react/dist/ssr";
 import { PageHero } from "@/components/PageHero";
 import { CrisisLines } from "@/components/CrisisLines";
@@ -47,12 +50,12 @@ export default function GetHelp() {
       <PageHero
         title={
           <>
-            You do not have to <span className="text-accent">do this alone.</span>
+            DoeNation: <span className="text-accent">empowering communities.</span>
           </>
         }
-        intro="DoeNation helps women leave battered and abusive homes, with a confidential place to stay where their attackers cannot find them."
-        image="/images/bloom.jpg"
-        imageAlt="Purple petunias in bloom with drops of water on their petals."
+        intro="Our main objective is helping women come out of battered and abusive homes, and putting them somewhere they can live without fear of their attackers finding them."
+        image="/images/warm-lights.jpg"
+        imageAlt="Warm Edison light bulbs glowing against a dark ceiling."
       >
         <div className="mt-8 flex flex-wrap gap-3">
           <a href={site.phoneHref} className="btn-primary">
@@ -68,47 +71,40 @@ export default function GetHelp() {
         <CrisisLines title="If you need help now" />
       </Reveal>
 
-      {/* How it works */}
+      {/* Contact us (original site copy) */}
       <section className="container-x grid gap-12 py-24 lg:grid-cols-[1fr_1.1fr] lg:gap-20 lg:py-32">
         <Reveal>
           <h2 className="display text-4xl leading-[1.08] font-semibold text-ink sm:text-5xl">
-            Reaching out is the first step. We will take the next one with you.
+            Have a question or want to get in touch?
           </h2>
           <p className="prose-body mt-6">
-            Tell us as much or as little as you are comfortable with. Let us know the safest way and time to reach you,
-            and whether it is safe to leave a message.
+            We&apos;d love to hear from you. Contact us today and we&apos;ll get back to you as soon as possible. Let us
+            know the safest way to reach you, and whether it is safe to leave a message.
           </p>
         </Reveal>
         <Reveal delay={0.06}>
-          <ol className="space-y-4">
+          <ul className="space-y-4">
             {[
-              {
-                t: "Get in touch",
-                b: `Call or text ${site.phone}, or email ${site.email}.`,
-              },
-              {
-                t: "Talk through what you need",
-                b: "We listen, answer your questions and talk about what a stay could look like.",
-              },
-              {
-                t: "Move somewhere safe",
-                b: "Our guest house location stays confidential, so you can rest without looking over your shoulder.",
-              },
-            ].map((s, i) => (
-              <li key={s.t} className="flex gap-5 rounded-[20px] border border-line bg-surface p-6">
-                <span
-                  aria-hidden
-                  className="display flex size-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-lg font-semibold text-accent"
+              { icon: Phone, t: "Call or text", value: site.phone, href: site.phoneHref },
+              { icon: EnvelopeSimple, t: "Email", value: site.email, href: `mailto:${site.email}` },
+              { icon: PaperPlaneTilt, t: "Drop us a line", value: "Use our contact form", href: "/contact" },
+            ].map(({ icon: Icon, t, value, href }) => (
+              <li key={t}>
+                <a
+                  href={href}
+                  className="group flex items-center gap-5 rounded-[20px] border border-line bg-surface p-6 transition-colors hover:border-accent"
                 >
-                  {i + 1}
-                </span>
-                <div>
-                  <h3 className="text-lg font-semibold text-ink">{s.t}</h3>
-                  <p className="mt-1 text-[16px] leading-relaxed text-muted">{s.b}</p>
-                </div>
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
+                    <Icon size={22} weight="duotone" aria-hidden />
+                  </span>
+                  <span>
+                    <span className="block text-sm text-muted">{t}</span>
+                    <span className="block text-lg font-semibold break-all text-ink group-hover:text-accent">{value}</span>
+                  </span>
+                </a>
               </li>
             ))}
-          </ol>
+          </ul>
         </Reveal>
       </section>
 
@@ -146,8 +142,8 @@ export default function GetHelp() {
         <Reveal>
           <div className="flex flex-col gap-6 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="display text-3xl font-semibold text-ink">Want to help other women find safety?</h2>
-              <p className="mt-2 text-[17px] text-muted">There are many ways to help, from volunteering to giving.</p>
+              <h2 className="display text-3xl font-semibold text-ink">There are many ways to get involved.</h2>
+              <p className="mt-2 text-[17px] text-muted">Attend one of our events, become a member, or volunteer your time.</p>
             </div>
             <Link href="/get-involved" className="btn-secondary self-start md:self-auto">
               Get involved <ArrowRight size={18} weight="bold" aria-hidden />

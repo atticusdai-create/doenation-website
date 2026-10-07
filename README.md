@@ -27,8 +27,22 @@ npm run build && npm start # production
 
 - Donations currently use email/phone. Add an online giving link in `src/app/get-involved/page.tsx` when available.
 - The contact form opens the visitor's email app. A server-side email service would let it send directly.
-- Photos in `public/images/` are placeholder photography from Picsum (Unsplash licence). Swap in DoeNation's own when you have them.
 - Update `site.url` in `src/lib/site.ts` to the final domain.
+
+## Content and image sources
+
+Copy is adapted from the original GoDaddy site (doenation.godaddysites.com), with grammar fixes. The Resources and Privacy pages and the crisis-line/safety text are new.
+
+| Image | Used on | Source | License |
+|---|---|---|---|
+| `doenation-sketch.jpg`, `egg-mark.png` | Home, logo, icons | DoeNation's own hand-drawn logo (from the original site) | DoeNation |
+| `hello.jpg` | Contact | Drew Beamer, Unsplash (also used on the original site) | Unsplash License |
+| `room-warm.jpg` | Home hero | Archee Lal, Unsplash | Unsplash License |
+| `room-quiet.jpg` | Home programs, Donate | Annie Spratt, Unsplash | Unsplash License |
+| `warm-lights.jpg` | Get help | Patrick Tomasso, Unsplash | Unsplash License |
+| `welcome-home.jpg` | Get involved | Stocker LL, Unsplash | Unsplash License |
+
+The original site's other three photos (a "welcome back" note, a bedroom and light bulbs) were Getty images licensed through GoDaddy's builder, which can't be reused off GoDaddy. The Unsplash photos above were chosen as free look-alikes of those subjects.
 
 ## Verifying changes
 

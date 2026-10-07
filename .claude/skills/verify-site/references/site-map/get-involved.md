@@ -4,7 +4,8 @@ How supporters can help: volunteer, attend events, become a member, donate.
 
 ## Sub-features
 
-- 3 ways to help (Volunteer is the accent tile), each with "Email us about this" (mailto with a subject).
+- Hero "Join DoeNation in making a difference." with `welcome-home.jpg`.
+- 3 ways to get involved (Volunteer is the accent tile), each with "Email us about this" (mailto with a subject).
 - Donate section `#donate`: "Donate" button (mailto, subject "I would like to donate") + phone button. **No online payment yet.** When a payment link exists, replace the mailto in `src/app/get-involved/page.tsx`.
 - Closing "Contact us" CTA.
 

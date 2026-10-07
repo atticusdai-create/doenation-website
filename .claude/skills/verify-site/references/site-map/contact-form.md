@@ -7,7 +7,7 @@ A privacy-aware message form plus direct contact details.
 - Fields: name (optional, `#name`), safest way to reach you (required, `#reach`), "Is it safe for us to leave a message?" pills (Yes / No / Not sure, default Not sure), message (required, `#message`).
 - Validation: client-side; errors render below fields (`#reach-error`, `#message-error`), set `aria-invalid`, and focus moves to the first invalid field.
 - Submit: builds a `mailto:` to doenation720@gmail.com with all fields in the body, then shows a `role=status` success panel with "Write another message".
-- Side column: phone, email, "Aurora, Colorado", address-not-public note.
+- Side column: neon "hello" photo (`hello.jpg`, from the original site), phone, email, "Aurora, Colorado", address-not-public note.
 
 ## Where it lives
 

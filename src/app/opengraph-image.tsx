@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-export const alt = "DoeNation: a safe place to begin again. A guest house in Aurora, Colorado.";
+export const alt = "Discover DoeNation Guest House, a guest house in Aurora, Colorado.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -32,10 +32,10 @@ export default async function Image() {
           <div style={{ fontSize: 40, letterSpacing: "-0.02em" }}>DoeNation</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 88, lineHeight: 1.05, letterSpacing: "-0.03em", maxWidth: 720 }}>
-            A safe place to begin again.
+          <div style={{ fontSize: 88, lineHeight: 1.05, letterSpacing: "-0.03em", maxWidth: 880 }}>
+            Discover DoeNation Guest House.
           </div>
-          <div style={{ marginTop: 28, fontSize: 32, color: "#e3d6f5" }}>A guest house in Aurora, Colorado</div>
+          <div style={{ marginTop: 28, fontSize: 32, color: "#e3d6f5" }}>Aurora, Colorado</div>
         </div>
       </div>
     ),
