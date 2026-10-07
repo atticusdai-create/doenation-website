@@ -5,8 +5,10 @@
   "routes": [
     "/",
     "/client-info",
+    "/resources",
     "/get-involved",
     "/contact",
+    "/privacy",
     "/this-page-does-not-exist"
   ],
   "viewports": {

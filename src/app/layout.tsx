@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: "DoeNation | A safe place to begin again",
     description: site.description,
-    images: [{ url: "/images/hero.jpg", width: 2000, height: 1400 }],
     locale: "en_US",
   },
   twitter: { card: "summary_large_image" },

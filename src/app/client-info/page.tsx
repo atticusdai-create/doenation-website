@@ -133,6 +133,12 @@ export default function GetHelp() {
               </Reveal>
             ))}
           </div>
+          <Link
+            href="/resources"
+            className="mt-10 inline-flex items-center gap-2 font-semibold text-accent underline-offset-4 hover:underline"
+          >
+            More hotlines and how to make a safety plan <ArrowRight size={18} weight="bold" aria-hidden />
+          </Link>
         </div>
       </section>
 

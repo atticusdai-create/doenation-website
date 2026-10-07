@@ -1,6 +1,7 @@
 export const site = {
   name: "DoeNation",
-  url: "https://doenation.godaddysites.com",
+  // Update when a custom domain is connected.
+  url: "https://doenation.vercel.app",
   description:
     "DoeNation is a guest house in Aurora, Colorado for women leaving abusive homes. A confidential place to rest, plan and rebuild.",
   phone: "720-341-8844",
@@ -33,6 +34,7 @@ export const crisisLines = [
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/client-info", label: "Get help" },
+  { href: "/resources", label: "Resources" },
   { href: "/get-involved", label: "Get involved" },
   { href: "/contact", label: "Contact" },
 ];

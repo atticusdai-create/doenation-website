@@ -16,7 +16,7 @@ export function Footer() {
         <div>
           <h2 className="text-sm font-semibold text-ink">Pages</h2>
           <ul className="mt-4 space-y-2.5 text-[15px]">
-            {nav.map((n) => (
+            {[...nav, { href: "/privacy", label: "Privacy" }].map((n) => (
               <li key={n.href}>
                 <Link href={n.href} className="text-muted transition-colors hover:text-accent">
                   {n.label}

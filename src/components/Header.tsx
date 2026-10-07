@@ -16,7 +16,7 @@ export function Header() {
       <div className="container-x flex h-[68px] items-center justify-between gap-6">
         <Logo />
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -24,7 +24,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-[15px] font-medium transition-colors duration-200 ${
+                className={`rounded-full px-4 py-2 text-[15px] font-medium whitespace-nowrap transition-colors duration-200 ${
                   active ? "bg-accent-soft text-accent" : "text-muted hover:text-ink"
                 }`}
               >
@@ -39,7 +39,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-full border border-line bg-surface text-ink md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-full border border-line bg-surface text-ink lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -52,7 +52,7 @@ export function Header() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="border-t border-line bg-bg md:hidden"
+        className="border-t border-line bg-bg lg:hidden"
       >
         <nav aria-label="Mobile" className="container-x flex flex-col py-3">
           {nav.map((item) => (
