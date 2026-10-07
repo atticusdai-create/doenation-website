@@ -24,6 +24,12 @@ const sections = [
     ],
   },
   {
+    title: "Donations",
+    body: [
+      "When you donate, you leave this site for a secure checkout run by GoDaddy Payments. Your payment details go to GoDaddy, not to this website, and are handled under GoDaddy's privacy policy.",
+    ],
+  },
+  {
     title: "Keeping your visit private",
     body: [
       "Use a private or incognito window, or clear your browsing history afterwards. Pressing the Esc key takes you to a weather page right away.",

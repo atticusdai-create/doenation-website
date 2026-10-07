@@ -31,6 +31,16 @@ export const crisisLines = [
   },
 ];
 
+/**
+ * Donations: DoeNation's GoDaddy Payments "Online payment" checkout (donor enters any amount).
+ * Same link as the original site's "Pay Now" button. The original "Donate" button pointed at a
+ * fixed $150 "Individual assessment" checkout instead, which is why it isn't used here.
+ * The checkout currently shows the account name "Bruce Feaster" and tip options; both are
+ * set in GoDaddy Payments, not in this code.
+ */
+export const donateUrl =
+  "https://poynt.godaddy.com/checkout/af1db2d3-9620-4070-a2f4-e97ec6e0c0b9/e0743927-d43c-4637-9ae1-4df?sourceApp=wam.paybutton";
+
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/client-info", label: "Get help" },

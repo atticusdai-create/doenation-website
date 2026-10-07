@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { UsersThree, CalendarHeart, IdentificationCard, EnvelopeSimple, Phone } from "@phosphor-icons/react/dist/ssr";
+import { UsersThree, CalendarHeart, IdentificationCard, EnvelopeSimple, Phone, HandHeart, LockSimple } from "@phosphor-icons/react/dist/ssr";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
-import { site } from "@/lib/site";
+import { donateUrl, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Get involved",
@@ -99,18 +99,19 @@ export default function GetInvolved() {
               Your support and contributions will enable us to meet our goals and fund our mission. Your contribution can
               make a big difference in the lives of those we serve.
             </p>
-            <p className="prose-body mt-4">
-              Donate today to help support our mission of empowering communities. To give, call or email us and we&apos;ll
-              help you donate in the way that works for you.
-            </p>
+            <p className="prose-body mt-4">Donate today to help support our mission of empowering communities.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={`mailto:${site.email}?subject=${encodeURIComponent("I would like to donate")}`} className="btn-primary">
-                <EnvelopeSimple size={18} weight="bold" aria-hidden /> Donate
+              <a href={donateUrl} className="btn-primary">
+                <HandHeart size={18} weight="bold" aria-hidden /> Donate
               </a>
               <a href={site.phoneHref} className="btn-secondary">
                 <Phone size={18} weight="bold" aria-hidden /> {site.phone}
               </a>
             </div>
+            <p className="mt-5 flex items-start gap-2 text-sm text-muted">
+              <LockSimple size={16} weight="bold" className="mt-0.5 shrink-0" aria-hidden />
+              You choose the amount. Payments are processed securely by GoDaddy.
+            </p>
           </Reveal>
         </div>
       </section>
