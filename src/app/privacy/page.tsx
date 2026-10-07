@@ -26,8 +26,8 @@ const sections = [
   {
     title: "Keeping your visit private",
     body: [
-      "Use a private or incognito window, or clear your browsing history afterwards. The Quick exit button and the Esc key take you to a weather page right away.",
-      "Quick exit replaces only the page you are on. If you visited several pages in the same tab, the Back button can still reach the earlier ones, so a private window is the safest choice.",
+      "Use a private or incognito window, or clear your browsing history afterwards. Pressing the Esc key takes you to a weather page right away.",
+      "The Esc shortcut replaces only the page you are on. If you visited several pages in the same tab, the Back button can still reach the earlier ones, so a private window is the safest choice.",
     ],
   },
   {

@@ -7,7 +7,7 @@ The page for women seeking help: reassurance, how to reach DoeNation, and online
 - Hero: "You do not have to do this alone.", CTAs "Call 720-341-8844" (tel:) and "Contact us".
 - Crisis lines panel.
 - Three numbered steps: Get in touch, Talk through what you need, Move somewhere safe.
-- Online safety tips (4): device, private browsing, clearing history, Quick exit.
+- Online safety tips (4): device, private browsing, clearing history, the Esc key.
 - Closing link to `/get-involved`.
 
 ## Where it lives

@@ -16,4 +16,3 @@ node $C goto / && node $C scroll bottom && node $C screenshot .verify/footer.png
 
 - 3 columns on desktop, stacked on mobile. Pages column = nav items + "Privacy".
 - Email address wraps (`break-all`) without overflowing at 390px.
-- The copyright row isn't covered by the Quick exit button.

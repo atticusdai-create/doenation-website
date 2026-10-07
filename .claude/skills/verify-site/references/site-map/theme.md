@@ -9,7 +9,7 @@ Tokens, type, shapes and motion shared by every page.
 - Type: Lexend only (variable, loaded via `next/font` as `--font-body`), used for headings (`.display` utility: tight tracking, balanced wrap) and body. Lexend has no italic, so headline emphasis is accent color only. Never add `italic` (the browser would fake an oblique).
 - Shapes: buttons are full pills (`btn-primary`, `btn-secondary`), panels and images 20px, inputs 12px.
 - Motion: `.reveal` (via `src/components/Reveal.tsx`) uses CSS scroll-driven animation; disabled under `prefers-reduced-motion`.
-- Z-index scale (only these): header `z-40` (mobile menu lives inside it), Quick exit and focused skip link `z-50`.
+- Z-index scale (only these): header `z-40` (mobile menu lives inside it), focused skip link `z-50`.
 
 ## Driving it with control-site
 

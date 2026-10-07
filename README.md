@@ -19,7 +19,7 @@ npm run build && npm start # production
 
 ## Safety features
 
-- **Quick exit** button on every page, plus the **Esc** key: replaces the page with a neutral weather search.
+- **Esc key** on every page: replaces the page with a neutral weather search (no visible button; the Get help and Privacy pages explain it).
 - Crisis line bar (911, National DV Hotline) on every page.
 - The guest house address is never published.
 

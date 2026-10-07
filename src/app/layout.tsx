@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SafetyBar } from "@/components/SafetyBar";
-import { QuickExit } from "@/components/QuickExit";
+import { EscapeExit } from "@/components/EscapeExit";
 import { site } from "@/lib/site";
 
 // One variable family for headings and body. Lexend was designed for reading ease.
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <QuickExit />
+        <EscapeExit />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

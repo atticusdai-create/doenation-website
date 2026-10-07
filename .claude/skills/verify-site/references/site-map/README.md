@@ -21,7 +21,7 @@ All pages share the global features below via `src/app/layout.tsx`.
 
 ## Global features (on every page)
 
-- [safety](safety.md): Quick exit button (fixed bottom-right) + Esc key, crisis-line top bar, skip link. **Highest priority.**
+- [safety](safety.md): Esc-key exit (no visible button), crisis-line top bar, skip link. **Highest priority.**
 - [nav](nav.md): sticky header, logo, 4 links + Donate; hamburger menu < 768px.
 - [footer](footer.md): about blurb, page links, phone/email/location.
 - [theme](theme.md): design tokens, light/dark by `prefers-color-scheme`, scroll reveals.
@@ -41,5 +41,5 @@ All pages share the global features below via `src/app/layout.tsx`.
 
 - Survivor seeking help: `/` → "Get help" → call `720-341-8844` or "Contact us" → `/contact` form.
 - Survivor looking for other help: nav "Resources" → hotline tap-to-call, or → Violence Free Colorado / safety-plan tool (external).
-- Survivor interrupted: any page → Esc or "Quick exit" → page replaced by a Google weather search (Back does not return).
+- Survivor interrupted: any page → press Esc → page replaced by a Google weather search (Back does not return).
 - Donor: nav "Donate" (any page) → `/get-involved#donate` → mailto / phone.

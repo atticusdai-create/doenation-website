@@ -28,4 +28,4 @@ node $C screenshot .verify/resources.png --full --viewport mobile
 ## Gotchas
 
 - `links` only crawls internal links. rainn.org, dcs.colorado.gov and 988 block automated requests (403), so a curl check of those isn't a reliable signal.
-- External links open in the same tab on purpose (Quick exit only replaces the current tab).
+- External links open in the same tab on purpose (the Esc exit only replaces the current tab).

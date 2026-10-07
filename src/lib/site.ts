@@ -39,5 +39,5 @@ export const nav = [
   { href: "/contact", label: "Contact" },
 ];
 
-/** Where the quick-exit control sends the visitor. Neutral, common pages. */
+/** Where the Esc safety shortcut sends the visitor. A neutral, common page. */
 export const quickExitUrl = "https://www.google.com/search?q=weather+today";

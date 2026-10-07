@@ -28,7 +28,6 @@ node $C form-state                                    # form replaced: messages[
 ## Gotchas
 
 - The Yes / No / Not sure pills are `<label>`s wrapping visually-hidden radios. Click the label (`label:has(input[value="yes|no|unsure"])`). `role=radio[name="No"]` is covered by its label and can't be clicked, and unquoted `text=No` is a substring match that hits "Now"/"Not sure".
-- On mobile the fixed Quick exit button can sit over the lower part of the form (e.g. the `#message` error) depending on scroll position. That's expected for a fixed control; scroll before judging a screenshot.
 
 - No backend: messages depend on the visitor having an email app. A server-side email service (for example Resend) is a possible future improvement.
 - Fields use `autoComplete="off"` on purpose (shared devices).

@@ -37,7 +37,7 @@ const safetyTips = [
   {
     icon: ShieldCheck,
     title: "Leave fast if you need to",
-    body: "The Quick exit button, or the Esc key, takes you to a weather page right away.",
+    body: "Press the Esc key at any time to jump straight to a weather page.",
   },
 ];
 

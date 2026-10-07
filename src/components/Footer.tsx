@@ -43,7 +43,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-line">
-        <p className="container-x py-5 pr-40 text-[13px] text-muted">
+        <p className="container-x py-5 text-[13px] text-muted">
           © 2026 DoeNation. All rights reserved.
         </p>
       </div>
