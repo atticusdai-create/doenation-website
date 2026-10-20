@@ -25,7 +25,7 @@ npm run build && npm start # production
 
 ## Before going live
 
-- Donations open DoeNation's GoDaddy Payments checkout (`donateUrl` in `src/lib/site.ts`, the original site's any-amount "Pay Now" link). In GoDaddy Payments, consider renaming the account's display name from "Bruce Feaster" to DoeNation, turning off tips, and fixing the unused $150 "Individual assessment" link the old Donate button pointed to.
+- Donations open DoeNation's GoDaddy Payments checkout (`donateUrl` in `src/lib/site.ts`, the original site's any-amount "Pay Now" link). In GoDaddy Payments, consider setting the account's display name to DoeNation, turning off tips, and fixing the unused $150 "Individual assessment" link the old Donate button pointed to.
 - The contact form opens the visitor's email app. A server-side email service would let it send directly.
 - Update `site.url` in `src/lib/site.ts` to the final domain.
 

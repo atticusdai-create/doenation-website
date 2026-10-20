@@ -117,12 +117,22 @@ export default function Resources() {
                   <div>
                     <h3 className="text-xl font-semibold text-ink">{r.name}</h3>
                     <p className="mt-2 text-[16px] leading-relaxed text-muted">{r.body}</p>
-                    <a
-                      href={r.link.href}
-                      className="mt-3 inline-flex items-center gap-1.5 font-semibold text-accent underline-offset-4 hover:underline"
-                    >
-                      {r.link.label} <ArrowSquareOut size={16} weight="bold" aria-hidden />
-                    </a>
+                    <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+                      <a
+                        href={r.link.href}
+                        className="inline-flex items-center gap-1.5 py-1 font-semibold text-accent underline-offset-4 hover:underline"
+                      >
+                        {r.link.label} <ArrowSquareOut size={16} weight="bold" aria-hidden />
+                      </a>
+                      {"call" in r && r.call && (
+                        <a
+                          href={r.call.href}
+                          className="inline-flex items-center gap-1.5 py-1 font-semibold text-ink tabular-nums hover:text-accent"
+                        >
+                          <Phone size={16} weight="bold" aria-hidden /> {r.call.label}
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </Reveal>

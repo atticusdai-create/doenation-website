@@ -42,7 +42,7 @@ node $C form-state                                           # after submitting:
 4. `console --errors --page`: no errors since the last `goto` (plain `console` is the whole session history).
 5. Interactive change? Drive it, then `record <route> out.webm --steps steps.json` for video proof. A working steps file: `.verify/proof-steps.json` (menu → contact form errors → submit → Esc exit).
 6. Perf-sensitive change (images, fonts, JS deps, above-the-fold)? `prod up` (builds and serves at :3101; `--rebuild` after code changes), then `perf http://localhost:3101/<route> --runs 3 --throttle --viewport mobile`, then `prod down`. Budgets (tightened Oct 2026): LCP 1800 ms, CLS 0.05, TBT 200 ms, JS 200 KB, total 500 KB. Baseline: LCP 0.7–1.4 s throttled (worst `/get-involved`), JS ≈ 145 KB, total 236–305 KB.
-7. Links or routing changed? `links`.
+7. Links, routing, images or external resources changed? `links --all`: internal pages, #anchors, external links in a real browser, tel:/mailto: format, image/og/icon URLs, and nothing pointing at the old GoDaddy site (`forbiddenHosts` in config). `blockedExternal` entries are sites with bot walls (rainn.org, dcs.colorado.gov): open those once in the built-in browser to confirm.
 
 ## Site Map
 Every page and feature, how to reach it, how to drive it: **[references/site-map/README.md](references/site-map/README.md)**. Read the README first, then only the feature files you need.

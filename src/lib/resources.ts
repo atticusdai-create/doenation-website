@@ -60,6 +60,8 @@ export const coloradoResources = [
     name: "Colorado Address Confidentiality Program",
     body: "A state program that gives survivors of domestic violence, sexual assault and stalking a substitute address, so their real one stays off public records. You apply with help from a certified victim advocate.",
     link: { label: "Learn about the ACP", href: "https://dcs.colorado.gov/acp" },
+    // The state is migrating this website in October 2026 and warned the URL may change. Phone verified on that page 2026-10-07.
+    call: { label: "303-866-2208", href: "tel:+13038662208" },
   },
 ];
 

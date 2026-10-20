@@ -407,7 +407,7 @@ const HELP = {
   perf: 'perf [path] [--runs N] [--throttle] [--viewport V] [--out file.json] [--compare file.json] — cold-load metrics (TTFB, FCP, LCP, CLS, TBT, bytes) as medians, checked against config.budgets.',
   trace: 'trace [path] <out.json> — Chrome performance trace of a cold load (open in chrome://tracing or DevTools Performance panel).',
   sweep: 'sweep [--routes /,/about] [--viewports mobile,desktop] [--themes light,dark] [--out dir] [--motion] — screenshot + lint + console check for every route x viewport x theme. Captures with reduced motion so scroll reveals show their final state (--motion to disable). Writes a gallery index.html.',
-  links: 'links [path] [--max N] — crawl internal links (rendered DOM) and report any non-2xx/3xx with the pages that link to them.',
+  links: 'links [path] [--max N] [--all] [--forbid host1,host2] — crawl internal links (rendered DOM) and report any non-2xx/3xx with the pages that link to them. --all also checks #anchors exist, external links (real browser; bot walls reported as "blocked", not broken), tel:/mailto: format, image/og:image/icon URLs, and any link/image pointing at a forbidden host (config.forbiddenHosts + --forbid).',
   record: 'record [path] <out.webm> [--steps steps.json] [--viewport V] — video proof. Default journey scrolls the page; --steps runs [{"click":"text=Pricing"},{"wait":800},{"type":["#email","a@b.co"]},{"press":"Enter"},{"scroll":"bottom"},{"goto":"/about"}].',
   cleanup: 'cleanup [--dry-run] — stop the session and delete .state (logs, profile).',
 };
@@ -909,6 +909,7 @@ const commands = {
     const pw = await loadPlaywright(cfg);
     return await withFreshPage(pw, {}, async ({ context, page }) => {
       const queue = [start], seen = new Set([start]), linkedFrom = {}, status = {};
+      const extra = { pages: {} };
       let crawled = 0;
       while (queue.length && crawled < max) {
         const url = queue.shift();
@@ -918,6 +919,18 @@ const commands = {
         if (res.status() >= 400 || !(res.headers?.()['content-type'] || '').includes('html')) continue;
         await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
         const hrefs = await page.$$eval('a[href]', (as) => as.map((a) => a.href));
+        if (flags.all) {
+          const found = await page.evaluate(() => ({
+            anchors: [...document.querySelectorAll('a[href]')].map((a) => ({ href: a.href, raw: a.getAttribute('href'), text: (a.textContent || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 40) })),
+            ids: [...document.querySelectorAll('[id]')].map((e) => e.id),
+            assets: [
+              ...[...document.images].map((i) => i.currentSrc || i.src),
+              ...[...document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]')].map((m) => m.content),
+              ...[...document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')].map((l) => l.href),
+            ].filter(Boolean),
+          }));
+          (extra.pages[url] = found);
+        }
         for (const h of hrefs) {
           let u; try { u = new URL(h); } catch { continue; }
           if (u.origin !== origin || /^(mailto|tel):/.test(h)) continue;
@@ -929,7 +942,57 @@ const commands = {
       }
       for (const u of queue) { const r = await context.request.get(u, { maxRedirects: 5 }).catch(() => null); status[u] = r ? r.status() : 0; }
       const broken = Object.entries(status).filter(([, s]) => s === 0 || s >= 400).map(([url, s]) => ({ url, status: s, linkedFrom: [...(linkedFrom[url] || [])].slice(0, 5) }));
-      return { checked: Object.keys(status).length, crawled, broken, clean: broken.length === 0 };
+      if (!flags.all) return { checked: Object.keys(status).length, crawled, broken, clean: broken.length === 0 };
+
+      // --all: anchors, external links, tel/mailto, assets, forbidden hosts.
+      const forbidden = [...(cfg.forbiddenHosts || []), ...String(flags.forbid || '').split(',')].map((h) => h.trim().toLowerCase()).filter(Boolean);
+      const isForbidden = (u) => { try { const h = new URL(u).hostname.toLowerCase(); return forbidden.some((f) => h === f || h.endsWith('.' + f)); } catch { return false; } };
+      const problems = { brokenAnchors: [], badTelMailto: [], forbiddenLinks: [], brokenExternal: [], blockedExternal: [], brokenAssets: [] };
+      const external = new Map(), assets = new Map();
+      for (const [pageUrl, f] of Object.entries(extra.pages)) {
+        for (const a of f.anchors) {
+          if (isForbidden(a.href)) problems.forbiddenLinks.push({ page: pageUrl, href: a.href, text: a.text });
+          if (/^tel:/i.test(a.href)) { if (!/^tel:\+?\d{3,15}$/.test(a.href.replace(/[\s().-]/g, ''))) problems.badTelMailto.push({ page: pageUrl, href: a.href }); continue; }
+          if (/^mailto:/i.test(a.href)) { if (!/^mailto:[^@\s]+@[^@\s]+\.[a-z]{2,}/i.test(a.href)) problems.badTelMailto.push({ page: pageUrl, href: a.href }); continue; }
+          let u; try { u = new URL(a.href); } catch { problems.brokenAnchors.push({ page: pageUrl, href: a.raw, reason: 'unparseable' }); continue; }
+          if (a.raw === '#' || a.raw === '') { problems.brokenAnchors.push({ page: pageUrl, href: a.raw, text: a.text, reason: 'placeholder link goes nowhere' }); continue; }
+          if (u.origin === origin) {
+            if (u.hash) {
+              const target = new URL(u.href); target.hash = '';
+              const ids = extra.pages[target.href]?.ids;
+              if (ids && !ids.includes(decodeURIComponent(u.hash.slice(1)))) problems.brokenAnchors.push({ page: pageUrl, href: a.raw, text: a.text, reason: `no element with id "${u.hash.slice(1)}" on ${target.pathname}` });
+            }
+          } else if (/^https?:$/.test(u.protocol)) {
+            (external.get(a.href) || external.set(a.href, new Set()).get(a.href)).add(pageUrl);
+          }
+        }
+        for (const src of f.assets) { if (isForbidden(src)) problems.forbiddenLinks.push({ page: pageUrl, href: src, text: '(image/meta)' }); (assets.get(src) || assets.set(src, new Set()).get(src)).add(pageUrl); }
+      }
+      for (const [src, pages] of assets) {
+        const r = await context.request.get(src, { maxRedirects: 5 }).catch(() => null);
+        const st = r ? r.status() : 0;
+        const ct = r?.headers()['content-type'] || '';
+        if (st === 0 || st >= 400 || !/^image\//.test(ct)) problems.brokenAssets.push({ url: src, status: st, contentType: ct, pages: [...pages].slice(0, 3) });
+      }
+      for (const [href, pages] of external) {
+        // Real browser navigation: many sites 403 plain HTTP clients but work for people.
+        const p2 = await context.newPage();
+        let st = 0, title = '', err = '';
+        try {
+          const r = await p2.goto(href, { waitUntil: 'domcontentloaded', timeout: 25000 });
+          st = r ? r.status() : 0;
+          title = await p2.title().catch(() => '');
+        } catch (e) { err = String(e.message || e).split('\n')[0]; }
+        await p2.close();
+        const entry = { url: href, status: st, title: title.slice(0, 60), pages: [...pages].slice(0, 3), ...(err && { error: err }) };
+        const botWall = [401, 403, 429, 503].includes(st) || /just a moment|attention required|access denied|captcha|verify you are human/i.test(title);
+        if (st && st < 400 && !botWall) continue;
+        if (botWall) problems.blockedExternal.push({ ...entry, note: 'Bot protection; open it in a normal browser to confirm.' });
+        else problems.brokenExternal.push(entry);
+      }
+      const hard = problems.brokenAnchors.length + problems.badTelMailto.length + problems.forbiddenLinks.length + problems.brokenExternal.length + problems.brokenAssets.length + broken.length;
+      return { checked: Object.keys(status).length, crawled, externalChecked: external.size, assetsChecked: assets.size, broken, ...problems, clean: hard === 0,
+        ...(problems.blockedExternal.length && { hint: 'blockedExternal = sites that refuse automated browsers. Not counted as broken; verify by hand (or with the built-in browser).' }) };
     });
   },
 

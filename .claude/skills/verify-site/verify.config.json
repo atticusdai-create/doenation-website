@@ -37,5 +37,9 @@
   ],
   "prodBuildCommand": "npx next build",
   "prodStartCommand": "npx next start -p 3101",
-  "prodUrl": "http://localhost:3101"
+  "prodUrl": "http://localhost:3101",
+  "forbiddenHosts": [
+    "godaddysites.com",
+    "wsimg.com"
+  ]
 }

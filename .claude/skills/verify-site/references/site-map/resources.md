@@ -27,5 +27,6 @@ node $C screenshot .verify/resources.png --full --viewport mobile
 
 ## Gotchas
 
-- `links` only crawls internal links. rainn.org, dcs.colorado.gov and 988 block automated requests (403), so a curl check of those isn't a reliable signal.
+- Use `links --all` to check every external link in a real browser. rainn.org and dcs.colorado.gov still return 403 to automation (reported as `blockedExternal`, not broken); both loaded fine in a real browser on 2026-10-07.
+- The ACP website is being migrated (state notice, Oct 2026) and its URL may change. The ACP entry has a phone fallback (303-866-2208, verified on the ACP page). Re-check `https://dcs.colorado.gov/acp` and update `src/lib/resources.ts` if it moves.
 - External links open in the same tab on purpose (the Esc exit only replaces the current tab).
